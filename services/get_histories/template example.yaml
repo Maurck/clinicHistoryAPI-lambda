@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Get Histories Example
+
+  Sample SAM Template for Get Histories Example
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Parameters:
+  DbUri:
+    Type: String
+    Default: 
+  Stage:
+    Type: String
+    Default: 
+  SecretKey:
+    Type: String
+    Default: 
+
+Resources:
+  GetHistoriesFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: src/
+      Handler: app.app
+      Runtime: python3.9
+      Environment:
+        Variables:
+          DB_URI: !Ref DbUri
+          STAGE: !Ref Stage
+          SECRET_KEY: !Ref SecretKey
+      Events:
+        GetHistories:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /histories
+            Method: get
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  GetHistoriesApi:
+    Description: "API Gateway endpoint URL for Get Histories function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/histories"
+  GetHistoriesFunction:
+    Description: "Get Histories Lambda Function ARN"
+    Value: !GetAtt GetHistoriesFunction.Arn
+  GetHistoriesFunctionIamRole:
+    Description: "Implicit IAM Role created for Get Histories function"
+    Value: !GetAtt GetHistoriesFunctionRole.Arn

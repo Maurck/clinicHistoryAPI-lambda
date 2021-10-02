@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "get-histories"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-q0jku9bo806o"
+s3_prefix = "get-histories"
+region = "sa-east-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "DbUri=\"mongodb+srv://Mauricio:1234@artemis2.cqjms.mongodb.net/ArtemisClinicHistories?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE\" ServerStatus=\"AWS\" SecretKey=\"clave secreta\""
+image_repositories = []
