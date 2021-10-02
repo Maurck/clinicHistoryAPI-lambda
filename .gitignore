@@ -134,3 +134,4 @@ deploy.yaml
 # AWS Lambda deploy
 .aws-sam
 template.yaml
+samconfig.toml
